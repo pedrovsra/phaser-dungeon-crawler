@@ -6,7 +6,8 @@ import { createCharacterAnims } from '../anims/CharacterAnims'
 import { createChestAnims } from '../anims/TreasureAnims'
 
 import Faune from '../characters/Faune'
-import Lizard from '~/enemies/Lizard'
+import Lizard from '../enemies/Lizard'
+import Chest from '../items/Chest'
 
 import '../characters/Faune'
 
@@ -43,7 +44,9 @@ export default class Game extends Phaser.Scene {
         const wallsLayer = map.createStaticLayer('Walls', tileset)
         wallsLayer.setCollisionByProperty({ collides: true })
 
-        const chests = this.physics.add.staticGroup()
+        const chests = this.physics.add.staticGroup({
+            classType: Chest
+        })
         const chestsLayer = map.getObjectLayer('Chests')
         chestsLayer.objects.forEach(e => {
             chests.get(e.x! + e.width! / 2, e.y! - e.height! / 2, 'treasure', 'chest_empty_open_anim_f0.png')
